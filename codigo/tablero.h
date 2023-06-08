@@ -12,8 +12,11 @@ public:
     Tablero();
     Tablero(int dimension);
     ~Tablero();
-    void posicionarBarcos(int** pos, bool* orientacion);
-    void atacar(int* pos);
+    void poblarTablero();
+    void dibujarTablero();
+    void dibujarTableroEnemigo();
+    bool posicionarBarco(int x, int y, int size, bool horizontal);
+    bool atacar(int x, int y);
     int getDimension();
 };
 

@@ -26,33 +26,72 @@ Tablero::~Tablero(){
     delete posiciones;
     delete barcos;
 }
-void Tablero::posicionarBarcos(int** pos, bool* orientacion){
-    int i;
-    barcos[0] = new Barco(4, pos[0], orientacion[0]);
-    for(i=1;i<4; i++){
-        barcos[i] = new Barco(3, pos[i], orientacion[i]);
-    }
-    for(i=4; i<6; i++){
-        barcos[i] = new Barco(2, pos[i], orientacion[i]);
-    }
-    barcos[6] = new Barco(1, pos[6], orientacion[6]);
-}
-void Tablero::atacar(int* pos){
-    int i, j;
-    for(i=0; i<dimension; i++){
-        if(pos[0]==i){
-            for(j=0; j<dimension; j++){
-                if(pos[1]==j){
-                    if(posiciones[i][j]=='*'){
-                        cout<<"ACIERTO"<<endl;
-                        posiciones[i][j]='X';
-                    }else if(posiciones[i][j]=='O'){
-                        cout<<"AGUA"<<endl;
-                        posiciones[i][j]='0';
-                    }
-                }
-            }  
+void Tablero::poblarTablero(){
+    for(int i=0; i<dimension; i++){
+        for(int j=0; j<dimension; j++){
+            posiciones[i][j] = 'O';
         }
-        
+    }
+}
+bool Tablero::posicionarBarco(int x, int y, int tamanio, bool esHorizontal){
+    int i, j;
+    char identificador;
+    switch(tamanio){
+        case 1:
+            identificador = 'P';
+            break;
+        case 2:
+            identificador = 'D';
+            break;
+        case 3:
+            identificador = 'C';
+            break;
+        case 4:
+            identificador = 'B';
+            break;
+    }
+    if(esHorizontal){
+        if(x+tamanio<dimension){
+            for(i=x; i<tamanio; i++){
+                posiciones[i][y] = identificador;
+            }
+            return true;
+        }else{
+            cout<<"Posicion invalida, el barco esta fuera de alcance!"<<endl;
+            return false;
+        }
+    } else {
+        if(y+tamanio<dimension){
+            for(i=y; i<tamanio; i++){
+                posiciones[x][i] = identificador;
+            }
+            return true;
+        }else{
+            cout<<"Posicion invalida, el barco esta fuera de alcance!"<<endl;
+            return false;
+        }
+    }
+    //construir barcos
+}
+bool Tablero::atacar(int x, int y){
+    if(x<dimension && y<dimension){
+        if(posiciones[x][y]=='O'){
+            cout<<"AGUA!"<<endl;
+            posiciones[x][y]=='0';
+        } else if(posiciones[x][y]=='X' || posiciones[x][y]=='0'){
+            cout<<"Ya has disparado ahi!"<<endl;
+            return false;
+        } else {
+            for(int i=0; i<7; i++){
+                if(barcos[i]->consultarPosicion(x,y)){
+                    cout<<"ACIERTO!"<<endl;
+                    cout<<"Has acertado un "<<barcos[i]->getTipo()<<"! Vida: "<<barcos[i]->getTipo()<<endl;
+                    return true;
+                }
+            }
+        }
+    }else{
+        cout<<"Disparo fuera de alcance!"<<endl;
+        return false;
     }
 }
