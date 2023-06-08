@@ -3,7 +3,7 @@
 #include <string>
 class Barco{
 private:
-    std::string tipo;
+    char tipo;
     int tamanio;
     int vida;
     int posX;
@@ -12,9 +12,9 @@ private:
     bool hundido;
 public:
     Barco();
-    Barco(std::string type, int x, int y, bool isHorizontal);
+    Barco(char type, int x, int y, bool isHorizontal);
     ~Barco();
-    std::string getTipo();
+    char getTipo();
     int getTamanio();
     int getVida();
     bool getHundido();

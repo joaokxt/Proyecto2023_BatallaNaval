@@ -6,17 +6,16 @@ Tablero::Tablero(){
     dimension = 9;
     posiciones = new char*[9];
     for(int i=0; i<dimension; i++){
-        posiciones[i] = new char[9];
+        posiciones[i] = new char(9);
     }
-    barcos = new Barco*[7];
 }
 Tablero::Tablero(int dimension){
     dimension = dimension;
     posiciones = new char*[dimension];
     for(int i=0; i<dimension; i++){
-        posiciones[i] = new char[dimension];
+        posiciones[i] = new char(dimension);
     }
-    barcos = new Barco*[7];
+    cantBarcos = 0;
 }
 Tablero::~Tablero(){
     int i;
@@ -24,36 +23,40 @@ Tablero::~Tablero(){
         delete posiciones[i];
     }
     delete posiciones;
-    delete barcos;
+    for(i=0; i<cantBarcos; i++){
+        delete barcos[i];
+    }
 }
-void Tablero::poblarTablero(){
+void Tablero::poblar(){
     for(int i=0; i<dimension; i++){
         for(int j=0; j<dimension; j++){
             posiciones[i][j] = 'O';
         }
     }
 }
-bool Tablero::posicionarBarco(int x, int y, int tamanio, bool esHorizontal){
+void Tablero::dibujar(){
     int i, j;
-    char identificador;
-    switch(tamanio){
-        case 1:
-            identificador = 'P';
-            break;
-        case 2:
-            identificador = 'D';
-            break;
-        case 3:
-            identificador = 'C';
-            break;
-        case 4:
-            identificador = 'B';
-            break;
+    cout<<"  ";
+    for(i=0; i<dimension; i++){
+        cout<<i<<" ";
     }
+    cout<<endl;
+    for(i=0; i<dimension; i++){
+        cout<<i<<" ";
+        for(j=0; j<dimension; j++){
+            cout<<posiciones[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+}
+bool Tablero::posicionarBarco(int x, int y, int tamanio, char tipo, bool esHorizontal){
+    int i, j;
     if(esHorizontal){
         if(x+tamanio<dimension){
+            barcos[cantBarcos]=new Barco(tipo, x, y, esHorizontal);
+            cantBarcos++;
             for(i=x; i<tamanio; i++){
-                posiciones[i][y] = identificador;
+                posiciones[y][i] = tipo;
             }
             return true;
         }else{
@@ -62,8 +65,10 @@ bool Tablero::posicionarBarco(int x, int y, int tamanio, bool esHorizontal){
         }
     } else {
         if(y+tamanio<dimension){
+            barcos[cantBarcos]=new Barco(tipo, x, y, esHorizontal);
+            cantBarcos++;
             for(i=y; i<tamanio; i++){
-                posiciones[x][i] = identificador;
+                posiciones[i][x] = tipo;
             }
             return true;
         }else{
@@ -71,7 +76,6 @@ bool Tablero::posicionarBarco(int x, int y, int tamanio, bool esHorizontal){
             return false;
         }
     }
-    //construir barcos
 }
 bool Tablero::atacar(int x, int y){
     if(x<dimension && y<dimension){
@@ -86,6 +90,11 @@ bool Tablero::atacar(int x, int y){
                 if(barcos[i]->consultarPosicion(x,y)){
                     cout<<"ACIERTO!"<<endl;
                     cout<<"Has acertado un "<<barcos[i]->getTipo()<<"! Vida: "<<barcos[i]->getTipo()<<endl;
+                    posiciones[x][y]=='X';
+                    barcos[i]->acierto();
+                    if(barcos[i]->getVida()==0){
+                        cout<<barcos[i]->getTipo()<<" hundido!"<<endl;
+                    }
                     return true;
                 }
             }
@@ -94,4 +103,5 @@ bool Tablero::atacar(int x, int y){
         cout<<"Disparo fuera de alcance!"<<endl;
         return false;
     }
+    return false;
 }

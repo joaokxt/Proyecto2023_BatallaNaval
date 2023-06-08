@@ -4,19 +4,25 @@
 using namespace std;
 
 Barco::Barco(){
-    
+    tipo = 'O';
+    tamanio = 0;
+    vida = 0;
+    posX = -1;
+    posY = -1;
+    esHorizontal = true;
+    hundido = true;
 }
-Barco::Barco(string type, int x, int y, bool isHorizontal){
+Barco::Barco(char type, int x, int y, bool isHorizontal){
     tipo = type;
-    if(tipo == "Patrullero"){
+    if(tipo == 'P'){//Patrullero
         tamanio = 1;
-    }else if(tipo == "Destructor"){
+    }else if(tipo == 'D'){//Destructor
         tamanio = 2;
-    }else if(tipo == "Submarino"){
+    }else if(tipo == 'S'){//Submarino
         tamanio = 3;
-    }else if(tipo == "Crcuero"){
+    }else if(tipo == 'C'){//Crucero
         tamanio = 3;
-    }else if(tipo == "Acorazado"){
+    }else if(tipo == 'A'){//Acorazado
         tamanio = 4;
     }
     vida = tamanio;
@@ -28,7 +34,7 @@ Barco::Barco(string type, int x, int y, bool isHorizontal){
 Barco::~Barco(){
 
 }
-string Barco::getTipo(){
+char Barco::getTipo(){
     return tipo;
 }
 int Barco::getTamanio(){
@@ -57,4 +63,7 @@ bool Barco::consultarPosicion(int x, int y){
         }
         return false;
     }
+}
+void Barco::acierto(){
+    vida--;
 }
