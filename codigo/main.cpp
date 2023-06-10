@@ -14,7 +14,7 @@ int num;
 void unJugador(){
     string name;
     int dimension;
-    bool valido=true;
+    bool valido=false;
 
     cout<<"-=-=-=-=-=| UN JUGADOR |-=-=-=-=-="<<endl;
     cout<<"Aca vas a jugar una partida contra la computadora."<<endl;
@@ -25,32 +25,16 @@ void unJugador(){
     cout<<"Ahora, deci de que tamano queres que sea tu tablero."<<endl;
     cout<<"Tiene que ser de por lo menos 9x9!"<<endl;
     cout<<">>> ";
-    while(!valido){
-        valido = true;
-        try{
-            cin>>dimension;
-            if(cin.fail()){
-                throw "NaN";
-            }
-            if(dimension<9){
-                throw "Limite";
-            }
-        } catch (string error){
-            valido = false;
-            if(error=="NaN"){
-                cout<<"Se debe ingresar un numero!"<<endl;
-            }
-            if(error=="Limite"){
-                cout<<"El numero no puede ser menor a 9!"<<endl;
-            }
-        } 
-    }
+    cin>>dimension;
     jugador1 = new Jugador(name, dimension);
     jugador2 = new Bot(dimension);
 
     while(true){
-        jugador1->getTablero()->poblar();
-        jugador2->getTablero()->poblar();
+        Tablero* tablero1 = jugador1->getTablero();
+        tablero1->poblar();
+        tablero1->dibujar();
+        break;
+        //empezar juego
     }
     
     
@@ -67,21 +51,20 @@ void reglas(){
 
 int main(){
     cout<<"-=-=-=-=-=| BATALLA NAVAL |-=-=-=-=-="<<endl;
-    cout<<"1. UN JUGADOR"<<endl<<endl;
-    cout<<"2. DOS JUGADORES"<<endl<<endl;
-    cout<<"3. REGLAS"<<endl<<endl;
+    cout<<"1. UN JUGADOR"<<endl;
+    cout<<"2. DOS JUGADORES"<<endl;
+    cout<<"3. REGLAS"<<endl;
     cout<<"X. SALIR"<<endl;
     cout<<">>> ";
     cin>>opcion;
-    num = (int)opcion;
-    switch(num){
-        case 1:
+    switch(opcion){
+        case 49:
             unJugador();
             break;
-        case 2:
+        case 50:
             dosJugadores();
             break;
-        case 3:
+        case 51:
             reglas();
             break;
         default:
