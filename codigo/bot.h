@@ -4,10 +4,9 @@
 #include <string>
 
 class Bot: public Jugador{
-private:
-    int dificultad;
 public:
-    Bot(int difficulty);
+    Bot(int dimension);
     ~Bot();
+    void disparar();
 };
 #endif

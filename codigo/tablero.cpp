@@ -53,11 +53,17 @@ bool Tablero::posicionarBarco(int x, int y, int tamanio, char tipo, bool esHoriz
     int i, j;
     if(esHorizontal){
         if(x+tamanio<dimension){
-            barcos[cantBarcos]=new Barco(tipo, x, y, esHorizontal);
-            cantBarcos++;
+            for(i=x; i<tamanio; i++){
+                if(posiciones[y][i]!='O'){
+                    cout<<"El barco se sobrepone con otro!"<<endl;
+                    return false;
+                }  
+            }
             for(i=x; i<tamanio; i++){
                 posiciones[y][i] = tipo;
             }
+            barcos[cantBarcos]=new Barco(tipo, x, y, esHorizontal);
+            cantBarcos++;
             return true;
         }else{
             cout<<"Posicion invalida, el barco esta fuera de alcance!"<<endl;
@@ -65,11 +71,17 @@ bool Tablero::posicionarBarco(int x, int y, int tamanio, char tipo, bool esHoriz
         }
     } else {
         if(y+tamanio<dimension){
-            barcos[cantBarcos]=new Barco(tipo, x, y, esHorizontal);
-            cantBarcos++;
+            for(i=y; i<tamanio; i++){
+                if(posiciones[i][x]!='O'){
+                    cout<<"El barco se sobrepone con otro!"<<endl;
+                    return false;
+                }
+            }
             for(i=y; i<tamanio; i++){
                 posiciones[i][x] = tipo;
             }
+            barcos[cantBarcos]=new Barco(tipo, x, y, esHorizontal);
+            cantBarcos++;
             return true;
         }else{
             cout<<"Posicion invalida, el barco esta fuera de alcance!"<<endl;
@@ -79,10 +91,10 @@ bool Tablero::posicionarBarco(int x, int y, int tamanio, char tipo, bool esHoriz
 }
 bool Tablero::atacar(int x, int y){
     if(x<dimension && y<dimension){
-        if(posiciones[x][y]=='O'){
+        if(posiciones[y][x]=='O'){
             cout<<"AGUA!"<<endl;
-            posiciones[x][y]=='0';
-        } else if(posiciones[x][y]=='X' || posiciones[x][y]=='0'){
+            posiciones[y][x]=='0';
+        } else if(posiciones[y][x]=='X' || posiciones[y][x]=='0'){
             cout<<"Ya has disparado ahi!"<<endl;
             return false;
         } else {
@@ -90,7 +102,7 @@ bool Tablero::atacar(int x, int y){
                 if(barcos[i]->consultarPosicion(x,y)){
                     cout<<"ACIERTO!"<<endl;
                     cout<<"Has acertado un "<<barcos[i]->getTipo()<<"! Vida: "<<barcos[i]->getTipo()<<endl;
-                    posiciones[x][y]=='X';
+                    posiciones[y][x]=='X';
                     barcos[i]->acierto();
                     if(barcos[i]->getVida()==0){
                         cout<<barcos[i]->getTipo()<<" hundido!"<<endl;
@@ -104,4 +116,7 @@ bool Tablero::atacar(int x, int y){
         return false;
     }
     return false;
+}
+Barco** Tablero::getBarcos(){
+    return barcos;
 }

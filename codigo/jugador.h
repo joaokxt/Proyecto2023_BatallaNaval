@@ -6,15 +6,16 @@
 class Tablero;
 class Jugador{
 protected:
-    int puntaje;
+    std::string nombre;
     bool turno;
     Tablero* tablero;
 public:
-    Jugador(std::string name, Tablero* board);
+    Jugador();
+    Jugador(std::string name, int dimension);
     ~Jugador();
-    int getPuntaje();
     Tablero* getTablero();
-    bool esTurno();
+    void ponerBarcos();
+    bool getTurno();
     void setTurno(bool turn);
 };
 

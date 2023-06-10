@@ -66,4 +66,7 @@ bool Barco::consultarPosicion(int x, int y){
 }
 void Barco::acierto(){
     vida--;
+    if(vida==0){
+        hundido=true;
+    }
 }
