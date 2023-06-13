@@ -19,6 +19,8 @@ public:
     std::string getNombre();
     bool getTurno();
     void setTurno(bool turn);
+    void validarIngresoXY(int* ingresado);
+    void validarIngresoDir(int* ingresado);
 };
 
 #endif

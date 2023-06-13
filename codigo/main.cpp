@@ -1,4 +1,5 @@
 #include <iostream>
+#include <limits>
 #include <stdlib.h>
 #include "tablero.h"
 #include "barco.h"
@@ -28,13 +29,29 @@ void unJugador(){
     cout<<"Perfecto, "<<name<<"!"<<endl;
     cout<<"Ahora, deci de que tamano queres que sea tu tablero."<<endl;
     cout<<"Tiene que ser de por lo menos 9x9!"<<endl;
-    do{
+    do {
         cout<<">>> ";
         cin>>dimension;
-        if(dimension<9){
-            cout<<"Acordate, por lo menos 9x9!"<<endl;
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout<<"Dimension no valida. Debes ingresar un numero."<<endl;
+            valido=false;
         }
-    }while(dimension<9);
+        else if (cin.peek() != '\n') {
+        cout<<"Dimension no valida. Debes ingresar un numero."<<endl;
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        valido = false;
+        }
+        else if (dimension<9){
+            cout<<"Acordate, por lo menos 9x9!"<<endl;
+            valido=false;
+        }
+        else {
+            valido = true;
+        }
+    } while (!valido);
 
     jugadores[0] = new Jugador(name, dimension);
     bot = new Bot(dimension);
@@ -114,13 +131,29 @@ void dosJugadores(){
     cout<<"Hola, "<<name2<<"!"<<endl;
     cout<<"Ahora, deci de que tamano queres que sea tu tablero."<<endl;
     cout<<"Tiene que ser de por lo menos 9x9!"<<endl;
-    do{
+    do {
         cout<<">>> ";
         cin>>dimension;
-        if(dimension<9){
-            cout<<"Acordate, por lo menos 9x9!"<<endl;
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout<<"Dimension no valida. Debes ingresar un numero."<<endl;
+            valido=false;
         }
-    }while(dimension<9);
+        else if (cin.peek() != '\n') {
+            cout<<"Dimension no valida. Debes ingresar un numero."<<endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            valido = false;
+        }
+        else if (dimension<9){
+            cout<<"Acordate, por lo menos 9x9!"<<endl;
+            valido=false;
+        }
+        else {
+            valido = true;
+        }
+    } while (!valido);
 
     jugadores[0] = new Jugador(name1, dimension);
     jugadores[1] = new Jugador(name2, dimension);
@@ -185,10 +218,33 @@ void dosJugadores(){
 }
 
 void reglas(){
-
+    char ing;
+    cout<<"-=-=-=-=-=| REGLAS BASICAS |-=-=-=-=-="<<endl;
+    cout<<"1- Objetivo: El objetivo del juego es hundir los barcos del oponente antes de que el hunda los tuyos. "
+          "El primer jugador en hundir todos los barcos enemigos gana."<<endl;
+    cout<<"2- Tablero: Cada jugador tiene su propio tablero en el que coloca sus barcos y marca los disparos realizados. "
+          "Las casillas del tablero se identifican mediante coordenadas."<<endl;
+    cout<<"3- Barcos: Cada jugador tiene una flota de barcos de diferentes tamanios. Los barcos no se superponen ni se "
+          "colocan en diagonales. Los barcos pueden ser colocados vertical u horizontalmente en el tablero."<<endl;
+    cout<<"4- Tamanios de barcos: Puedes tener diferentes tamanios de barcos en tu juego."<<endl;
+        cout<<"*Patrullero -> 1 casilla"<<endl;
+        cout<<"*Destructor -> 2 casillas"<<endl;
+        cout<<"*Submarino -> 3 casillas"<<endl;
+        cout<<"*Crucero -> 3 casillas"<<endl;
+        cout<<"*Acorazado -> 4 casillas"<<endl;
+    cout<<"5- Disparos: Los jugadores se turnan para realizar disparos. El objetivo es adivinar la ubicacion de los "
+          "barcos enemigos y marcar esa casilla como \"impactada\" o \"agua\" si se falla el disparo."<<endl;
+    cout<<"6- Hundimiento de barcos: Un barco se considera hundido cuando todas las casillas que ocupa han sido impactadas por el oponente."<<endl;
+    cout<<"7- Estrategia: Los jugadores deben usar la logica y la deduccion para determinar la ubicacion de los barcos enemigos. "
+          "Basandose en los resultados de los disparos anteriores, pueden hacer suposiciones y adaptar su estrategia para maximizar sus posibilidades de exito."<<endl;
+    cout<<"8- Ganador: El juego continua hasta que todos los barcos de un jugador hayan sido hundidos. El primer jugador en hundir todos los barcos enemigos es el ganador."<<endl;
+    cout<<endl;
+    cout<<"Ingresa algo para volver al menu: ";
+    cin>>ing;
 }
 
 int main(){
+    do{
     system("cls");
     cout<<"-=-=-=-=-=| BATALLA NAVAL |-=-=-=-=-="<<endl;
     cout<<"1. UN JUGADOR"<<endl;
@@ -210,5 +266,6 @@ int main(){
         default:
             return 0;
     }
+    }while(opcion==51);
     
 }

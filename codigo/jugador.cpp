@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stdlib.h>
+#include <limits>
 #include "jugador.h"
 #include "tablero.h"
 using namespace std;
@@ -28,11 +29,14 @@ void Jugador::ponerBarcos(){
     do{
         cout<<"X >> ";
         cin>>x;
+        validarIngresoXY(&x);
         cout<<"Y >> ";
         cin>>y;
+        validarIngresoXY(&y);
         cout<<"Vertical[0] u Horizontal[1]?"<<endl;
         cout<<">> ";
         cin>>ing;
+        validarIngresoDir(&ing);
         if(ing==0){
             horizontal=false;
         }else{
@@ -45,11 +49,14 @@ void Jugador::ponerBarcos(){
     do{
         cout<<"X >> ";
         cin>>x;
+        validarIngresoXY(&x);
         cout<<"Y >> ";
         cin>>y;
+        validarIngresoXY(&y);
         cout<<"Vertical[0] u Horizontal[1]?"<<endl;
         cout<<">> ";
         cin>>ing;
+        validarIngresoDir(&ing);
         if(ing==0){
             horizontal=false;
         }else{
@@ -62,11 +69,14 @@ void Jugador::ponerBarcos(){
     do{
         cout<<"X >> ";
         cin>>x;
+        validarIngresoXY(&x);
         cout<<"Y >> ";
         cin>>y;
+        validarIngresoXY(&y);
         cout<<"Vertical[0] u Horizontal[1]?"<<endl;
         cout<<">> ";
         cin>>ing;
+        validarIngresoDir(&ing);
         if(ing==0){
             horizontal=false;
         }else{
@@ -79,11 +89,14 @@ void Jugador::ponerBarcos(){
     do{
         cout<<"X >> ";
         cin>>x;
+        validarIngresoXY(&x);
         cout<<"Y >> ";
         cin>>y;
+        validarIngresoXY(&y);
         cout<<"Vertical[0] u Horizontal[1]?"<<endl;
         cout<<">> ";
         cin>>ing;
+        validarIngresoDir(&ing);
         if(ing==0){
             horizontal=false;
         }else{
@@ -96,11 +109,14 @@ void Jugador::ponerBarcos(){
     do{
         cout<<"X >> ";
         cin>>x;
+        validarIngresoXY(&x);
         cout<<"Y >> ";
         cin>>y;
+        validarIngresoXY(&y);
         cout<<"Vertical[0] u Horizontal[1]?"<<endl;
         cout<<">> ";
         cin>>ing;
+        validarIngresoDir(&ing);
         if(ing==0){
             horizontal=false;
         }else{
@@ -113,11 +129,14 @@ void Jugador::ponerBarcos(){
     do{
         cout<<"X >> ";
         cin>>x;
+        validarIngresoXY(&x);
         cout<<"Y >> ";
         cin>>y;
+        validarIngresoXY(&y);
         cout<<"Vertical[0] u Horizontal[1]?"<<endl;
         cout<<">> ";
         cin>>ing;
+        validarIngresoDir(&ing);
         if(ing==0){
             horizontal=false;
         }else{
@@ -130,11 +149,14 @@ void Jugador::ponerBarcos(){
     do{
         cout<<"X >> ";
         cin>>x;
+        validarIngresoXY(&x);
         cout<<"Y >> ";
         cin>>y;
+        validarIngresoXY(&y);
         cout<<"Vertical[0] u Horizontal[1]?"<<endl;
         cout<<">> ";
         cin>>ing;
+        validarIngresoDir(&ing);
         if(ing==0){
             horizontal=false;
         }else{
@@ -151,8 +173,10 @@ void Jugador::disparar(Tablero *tableroEnemigo){
     do{
         cout<<"X >> ";
         cin>>x;
+        validarIngresoXY(&x);
         cout<<"Y >> ";
         cin>>y;
+        validarIngresoXY(&y);
         valido = tableroEnemigo->atacar(x,y);
     }while(!valido);
 }
@@ -165,3 +189,67 @@ bool Jugador::getTurno(){
 void Jugador::setTurno(bool turn){
     turno = turn;
 }
+
+void Jugador::validarIngresoXY(int* ingresado) {
+    bool val;
+    do{
+    if (cin.fail()) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout<<"Entrada invalida. Debes ingresar un numero."<<endl;
+        cout<<"Intente nuevamente>>>";
+        cin>>*ingresado;
+        val=false;
+    }
+    else if (cin.peek() != '\n') {
+        cout<<"Entrada invalida. Debes ingresar un numero."<<endl;
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout<<"Intente nuevamente>>>";
+        cin>>*ingresado;
+        val=false;
+    }
+    else if(*ingresado<0){
+        cout<<"Posicion invalida, el barco esta fuera de alcance!"<<endl;
+        cout<<"Intente nuevamente>>>";
+        cin>>*ingresado;
+        val=false;
+    }
+    else {
+        val=true;
+    }
+    }while(!val);
+}
+
+void Jugador::validarIngresoDir(int *ingresado) {
+    bool val;
+    do{
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout<<"Entrada invalida. Debes ingresar un numero."<<endl;
+            cout<<"Intente nuevamente>>>";
+            cin>>*ingresado;
+            val=false;
+        }
+        else if (cin.peek() != '\n') {
+            cout<<"Entrada invalida. Debes ingresar un numero."<<endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout<<"Intente nuevamente>>>";
+            cin>>*ingresado;
+            val=false;
+        }
+        else if(*ingresado!=0 && *ingresado!=1){
+            cout<<"Opcion invalida. Vertical[0] u Horizontal[1] ?"<<endl;
+            cout<<"Intente nuevamente>>>";
+            cin>>*ingresado;
+            val=false;
+        }
+        else {
+            val=true;
+        }
+    }while(!val);
+}
+
+
