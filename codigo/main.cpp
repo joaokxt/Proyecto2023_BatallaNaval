@@ -17,6 +17,7 @@ void unJugador(){
     string name;
     int dimension;
     bool valido=false, gameOver=false;
+    char ing;
 
     system("cls");
     cout<<"-=-=-=-=-=| UN JUGADOR |-=-=-=-=-="<<endl;
@@ -49,7 +50,8 @@ void unJugador(){
     jugadores[1]->setTurno(false);
     
     do{
-        cout<<"TABLERO DE "<<jugadores[0]->getNombre()<<endl;
+        system("cls");
+        cout<<"TU TABLERO "<<endl;
         tableros[0]->dibujar();
         cout<<"TABLERO DE "<<bot->getNombre()<<endl;
         tableros[1]->enemigoDibujar();
@@ -60,20 +62,32 @@ void unJugador(){
         tableros[1]->resumenFlota();*/
         if(jugadores[0]->getTurno()){
             cout<<"TURNO DE "<<jugadores[0]->getNombre()<<endl;
+            cout<<"\nATACA!"<<endl;
             jugadores[0]->disparar(tableros[1]);
             jugadores[0]->setTurno(false);
             bot->setTurno(true);
+            cout<<"Ingresa algo para seguir: ";
+            cin>>ing;
+
         }else{
             cout<<"TURNO DE "<<bot->getNombre()<<endl;
+            cout<<"TU TABLERO "<<endl;
+            tableros[1]->dibujar();
+            cout<<"TABLERO DE "<<jugadores[0]->getNombre()<<endl;
+            tableros[0]->enemigoDibujar();
+            cout<<"\nLA CPU ATACA!"<<endl;
+            cout<<"RESULTADOS: "<<endl;
             bot->disparar(tableros[0]);
             jugadores[0]->setTurno(true);
             bot->setTurno(false);
+            cout<<"Ingresa algo para seguir: ";
+            cin>>ing;
         }
-        if(!tableros[0]->statusFlota()){
+        if(tableros[0]->flotaOperante()==false){
             cout<<"GANO "<<bot->getNombre()<<endl;
             gameOver = true;
         }
-        if(!tableros[1]->statusFlota()){
+        if(tableros[1]->flotaOperante()==false){
             cout<<"GANO "<<jugadores[0]->getNombre()<<endl;
             gameOver = true;
         }
@@ -85,6 +99,7 @@ void dosJugadores(){
     string name1, name2;
     int dimension;
     bool valido=false, gameOver=false;
+    char ing;
 
     system("cls");
     cout<<"-=-=-=-=-=| DOS JUGADORES |-=-=-=-=-="<<endl;
@@ -96,6 +111,7 @@ void dosJugadores(){
     cout<<"Ahora, como queres que llame al segundo jugador?"<<endl;
     cout<<">>> ";
     cin>>name2;
+    cout<<"Hola, "<<name2<<"!"<<endl;
     cout<<"Ahora, deci de que tamano queres que sea tu tablero."<<endl;
     cout<<"Tiene que ser de por lo menos 9x9!"<<endl;
     do{
@@ -114,14 +130,17 @@ void dosJugadores(){
     tableros[0]->poblar();
     tableros[1]->poblar();
 
+    system("cls");
     cout<<jugadores[0]->getNombre()<<endl;
     jugadores[0]->ponerBarcos();
+    system("cls");
     cout<<jugadores[1]->getNombre()<<endl;
     jugadores[1]->ponerBarcos();
     jugadores[0]->setTurno(true);
     jugadores[1]->setTurno(false);
-    
+
     do{
+        system("cls");
         /*
         cout<<"FLOTA DE "<<jugadores[0]->getNombre()<<endl;
         tableros[0]->resumenFlota();
@@ -133,23 +152,31 @@ void dosJugadores(){
             tableros[0]->dibujar();
             cout<<"TABLERO DE "<<jugadores[1]->getNombre()<<endl;
             tableros[1]->enemigoDibujar();
+            cout<<"\nATACA!"<<endl;
             jugadores[0]->disparar(tableros[1]);
             jugadores[0]->setTurno(false);
-            bot->setTurno(true);
+            jugadores[1]->setTurno(true);
+            cout<<"Ingresa algo para seguir: ";
+            cin>>ing;
+
         }else{
             cout<<"TURNO DE "<<jugadores[1]->getNombre()<<endl;
             cout<<"TU TABLERO "<<endl;
             tableros[1]->dibujar();
             cout<<"TABLERO DE "<<jugadores[0]->getNombre()<<endl;
+            tableros[0]->enemigoDibujar();
+            cout<<"\nATACA!"<<endl;
             jugadores[1]->disparar(tableros[0]);
             jugadores[0]->setTurno(true);
-            bot->setTurno(false);
+            jugadores[1]->setTurno(false);
+            cout<<"Ingresa algo para seguir: ";
+            cin>>ing;
         }
-        if(!tableros[0]->statusFlota()){
+        if(tableros[0]->flotaOperante()==false){
             cout<<"GANO "<<jugadores[1]->getNombre()<<endl;
             gameOver = true;
         }
-        if(!tableros[1]->statusFlota()){
+        if(tableros[1]->flotaOperante()==false){
             cout<<"GANO "<<jugadores[0]->getNombre()<<endl;
             gameOver = true;
         }

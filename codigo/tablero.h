@@ -20,7 +20,7 @@ public:
     bool posicionarBarco(int x, int y, int size, char tipo, bool horizontal);
     bool atacar(int x, int y);
     void resumenFlota();
-    bool statusFlota();
+    bool flotaOperante();
     int getDimension();
 };
 

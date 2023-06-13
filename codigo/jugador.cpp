@@ -154,7 +154,6 @@ void Jugador::disparar(Tablero *tableroEnemigo){
         cout<<"Y >> ";
         cin>>y;
         valido = tableroEnemigo->atacar(x,y);
-        cout<<"hola"<<endl;
     }while(!valido);
 }
 string Jugador::getNombre(){

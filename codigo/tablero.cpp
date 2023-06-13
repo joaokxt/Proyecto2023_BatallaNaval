@@ -114,7 +114,7 @@ bool Tablero::atacar(int x, int y){
     if(x<dimension && y<dimension){
         if(posiciones[y][x]=='*'){
             cout<<"AGUA!"<<endl;
-            posiciones[y][x]=='0';
+            posiciones[y][x]='0';
             return true;
         } else if(posiciones[y][x]=='X' || posiciones[y][x]=='0'){
             cout<<"Ya has disparado ahi!"<<endl;
@@ -122,13 +122,8 @@ bool Tablero::atacar(int x, int y){
         } else {
             for(int i=0; i<7; i++){
                 if(barcos[i]->consultarPosicion(x,y)){
-                    cout<<"ACIERTO!"<<endl;
-                    cout<<"Has acertado un "<<barcos[i]->getTipo()<<"! Vida: "<<barcos[i]->getVida()<<endl;
-                    posiciones[y][x]=='X';
+                    posiciones[y][x]='X';
                     barcos[i]->acierto();
-                    if(barcos[i]->getHundido()){
-                        cout<<barcos[i]->getTipo()<<" hundido!"<<endl;
-                    }
                     return true;
                 }
             }
@@ -144,18 +139,17 @@ void Tablero::resumenFlota(){
         barcos[i]->resumen();
     }
 }
-bool Tablero::statusFlota(){
+bool Tablero::flotaOperante(){
     int i, j=0;
     for(i=0; i<7; i++){
-        if(barcos[i]->getHundido()){
+        if(barcos[i]->getHundido()==true){
             j++;
         }
     }
     if(j==7){
         return false;
-    }else{
-        return true;
     }
+    return true;
 }
 int Tablero::getDimension(){
     return dimension;
