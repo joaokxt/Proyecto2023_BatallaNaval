@@ -16,11 +16,12 @@ public:
     ~Tablero();
     void poblar();
     void dibujar();
-    void dibujarEnemigo();
+    void enemigoDibujar();
     bool posicionarBarco(int x, int y, int size, char tipo, bool horizontal);
     bool atacar(int x, int y);
+    void resumenFlota();
+    bool statusFlota();
     int getDimension();
-    Barco** getBarcos();
 };
 
 #endif

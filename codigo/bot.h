@@ -7,6 +7,7 @@ class Bot: public Jugador{
 public:
     Bot(int dimension);
     ~Bot();
-    void disparar();
+    void disparar(Tablero *tableroEnemigo);
+    void ponerBarcos();
 };
 #endif

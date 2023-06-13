@@ -20,6 +20,7 @@ public:
     bool getHundido();
     bool consultarPosicion(int x, int y);
     void acierto();
+    void resumen();
 };
 
 #endif

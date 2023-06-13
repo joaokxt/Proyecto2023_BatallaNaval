@@ -70,3 +70,21 @@ void Barco::acierto(){
         hundido=true;
     }
 }
+void Barco::resumen(){
+    if(tipo == 'P'){//Patrullero
+        cout<<"PATRULLERO: ";
+    }else if(tipo == 'D'){//Destructor
+        cout<<"DESTRUCTOR: ";
+    }else if(tipo == 'S'){//Submarino
+        cout<<"SUBMARINO: ";
+    }else if(tipo == 'C'){//Crucero
+        cout<<"CRUCERO: ";
+    }else if(tipo == 'A'){//Acorazado
+        cout<<"ACORAZADO: ";
+    }
+    if(hundido){
+        cout<<"HUNDIDO"<<endl;
+    }else{
+        cout<<"OPERANTE || Vida: "<<vida<<endl;
+    }
+}
