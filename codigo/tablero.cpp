@@ -11,7 +11,14 @@ Tablero::Tablero(){
 }
 Tablero::Tablero(int dim){
     dimension = dim;
-    posiciones = new char*[dim];
+    try
+    {
+        posiciones = new char*[dim];
+    }
+    catch (exception& e)
+    {
+        cout << "Excepcion: " << e.what() << endl;
+    }
     for(int i=0; i<dimension; i++){
         posiciones[i] = new char(dimension);
     }
