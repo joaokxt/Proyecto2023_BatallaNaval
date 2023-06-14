@@ -39,10 +39,10 @@ void unJugador(){
             valido=false;
         }
         else if (cin.peek() != '\n') {
-        cout<<"Dimension no valida. Debes ingresar un numero."<<endl;
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        valido = false;
+            cout<<"Dimension no valida. Debes ingresar un numero."<<endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            valido = false;
         }
         else if (dimension<9){
             cout<<"Acordate, por lo menos 9x9!"<<endl;
@@ -52,6 +52,8 @@ void unJugador(){
             valido = true;
         }
     } while (!valido);
+
+    system("cls");
 
     jugadores[0] = new Jugador(name, dimension);
     bot = new Bot(dimension);
@@ -64,7 +66,7 @@ void unJugador(){
     jugadores[0]->ponerBarcos();
     bot->ponerBarcos();
     jugadores[0]->setTurno(true);
-    jugadores[1]->setTurno(false);
+    bot->setTurno(false);
     
     do{
         system("cls");
@@ -78,23 +80,27 @@ void unJugador(){
         cout<<"FLOTA DE "<<jugadores[1]->getNombre()<<endl;
         tableros[1]->resumenFlota();*/
         if(jugadores[0]->getTurno()){
-            cout<<"TURNO DE "<<jugadores[0]->getNombre()<<endl;
-            cout<<"\nATACA!"<<endl;
+            cout<<"\nTURNO DE "<<jugadores[0]->getNombre()<<endl;
+            cout<<"ATACA!"<<endl;
             jugadores[0]->disparar(tableros[1]);
+            cout<<"TU TABLERO "<<endl;
+            tableros[0]->dibujar();
+            cout<<"TABLERO DE "<<bot->getNombre()<<endl;
+            tableros[1]->enemigoDibujar();
             jugadores[0]->setTurno(false);
             bot->setTurno(true);
             cout<<"Ingresa algo para seguir: ";
             cin>>ing;
 
         }else{
-            cout<<"TURNO DE "<<bot->getNombre()<<endl;
-            cout<<"TU TABLERO "<<endl;
-            tableros[1]->dibujar();
-            cout<<"TABLERO DE "<<jugadores[0]->getNombre()<<endl;
-            tableros[0]->enemigoDibujar();
-            cout<<"\nLA CPU ATACA!"<<endl;
-            cout<<"RESULTADOS: "<<endl;
+            cout<<"\nTURNO DE "<<bot->getNombre()<<endl;
+            cout<<"LA CPU ATACA!"<<endl;
+            cout<<"RESULTADO: ";
             bot->disparar(tableros[0]);
+            cout<<"TU TABLERO "<<endl;
+            tableros[0]->dibujar();
+            cout<<"TABLERO DE "<<bot->getNombre()<<endl;
+            tableros[1]->enemigoDibujar();
             jugadores[0]->setTurno(true);
             bot->setTurno(false);
             cout<<"Ingresa algo para seguir: ";

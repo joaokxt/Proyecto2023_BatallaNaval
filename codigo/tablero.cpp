@@ -132,7 +132,6 @@ bool Tablero::atacar(int x, int y){
         cout<<"Disparo fuera de alcance!"<<endl;
         return false;
     }
-    return false;
 }
 void Tablero::resumenFlota(){
     for(int i=0; i<7; i++){

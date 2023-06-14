@@ -17,6 +17,66 @@ Jugador::Jugador(string name, int dimension){
 Jugador::~Jugador(){
     delete tablero;
 }
+void Jugador::validarIngresoXY(int* ingresado) {
+    bool val;
+    do{
+    if (cin.fail()) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout<<"Entrada invalida. Debes ingresar un numero."<<endl;
+        cout<<"Intente nuevamente >>> ";
+        cin>>*ingresado;
+        val=false;
+    }
+    else if (cin.peek() != '\n') {
+        cout<<"Entrada invalida. Debes ingresar un numero."<<endl;
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout<<"Intente nuevamente >>> ";
+        cin>>*ingresado;
+        val=false;
+    }
+    else if(*ingresado<0){
+        cout<<"Posicion invalida, el barco esta fuera de alcance!"<<endl;
+        cout<<"Intente nuevamente >>> ";
+        cin>>*ingresado;
+        val=false;
+    }
+    else {
+        val=true;
+    }
+    }while(!val);
+}
+void Jugador::validarIngresoDir(int *ingresado) {
+    bool val;
+    do{
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout<<"Entrada invalida. Debes ingresar un numero."<<endl;
+            cout<<"Intente nuevamente >>> ";
+            cin>>*ingresado;
+            val=false;
+        }
+        else if (cin.peek() != '\n') {
+            cout<<"Entrada invalida. Debes ingresar un numero."<<endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout<<"Intente nuevamente >>> ";
+            cin>>*ingresado;
+            val=false;
+        }
+        else if(*ingresado!=0 && *ingresado!=1){
+            cout<<"Opcion invalida. Vertical[0] u Horizontal[1] ?"<<endl;
+            cout<<"Intente nuevamente >>> ";
+            cin>>*ingresado;
+            val=false;
+        }
+        else {
+            val=true;
+        }
+    }while(!val);
+}
 Tablero* Jugador::getTablero(){
     return tablero;
 }
@@ -44,6 +104,7 @@ void Jugador::ponerBarcos(){
         }
         valido = tablero->posicionarBarco(x, y, 1, 'P', horizontal); 
     }while(!valido);
+    system("cls");
     tablero->dibujar();
     cout<<"PRIMER DESTRUCTOR (Tamanio: 2)"<<endl;
     do{
@@ -64,6 +125,7 @@ void Jugador::ponerBarcos(){
         }
         valido = tablero->posicionarBarco(x, y, 2, 'D', horizontal); 
     }while(!valido);
+    system("cls");
     tablero->dibujar();
     cout<<"SEGUNDO DESTRUCTOR (Tamanio: 2)"<<endl;
     do{
@@ -84,6 +146,7 @@ void Jugador::ponerBarcos(){
         }
         valido = tablero->posicionarBarco(x, y, 2, 'D', horizontal);
     }while(!valido);
+    system("cls");
     tablero->dibujar();
     cout<<"PRIMER SUBMARINO (Tamanio: 3)"<<endl;
     do{
@@ -104,6 +167,7 @@ void Jugador::ponerBarcos(){
         }
         valido = tablero->posicionarBarco(x, y, 3, 'S', horizontal);
     }while(!valido);
+    system("cls");
     tablero->dibujar();
     cout<<"SEGUNDO SUBMARINO (Tamanio: 3)"<<endl;
     do{
@@ -124,6 +188,7 @@ void Jugador::ponerBarcos(){
         }
         valido = tablero->posicionarBarco(x, y, 3, 'S', horizontal);
     }while(!valido);
+    system("cls");
     tablero->dibujar();
     cout<<"CRUCERO (Tamanio: 4)"<<endl;
     do{
@@ -144,6 +209,7 @@ void Jugador::ponerBarcos(){
         }
         valido = tablero->posicionarBarco(x, y, 4, 'C', horizontal);
     }while(!valido);
+    system("cls");
     tablero->dibujar();
     cout<<"ACORAZADO (Tamanio: 5)"<<endl;
     do{
@@ -189,67 +255,3 @@ bool Jugador::getTurno(){
 void Jugador::setTurno(bool turn){
     turno = turn;
 }
-
-void Jugador::validarIngresoXY(int* ingresado) {
-    bool val;
-    do{
-    if (cin.fail()) {
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout<<"Entrada invalida. Debes ingresar un numero."<<endl;
-        cout<<"Intente nuevamente>>>";
-        cin>>*ingresado;
-        val=false;
-    }
-    else if (cin.peek() != '\n') {
-        cout<<"Entrada invalida. Debes ingresar un numero."<<endl;
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout<<"Intente nuevamente>>>";
-        cin>>*ingresado;
-        val=false;
-    }
-    else if(*ingresado<0){
-        cout<<"Posicion invalida, el barco esta fuera de alcance!"<<endl;
-        cout<<"Intente nuevamente>>>";
-        cin>>*ingresado;
-        val=false;
-    }
-    else {
-        val=true;
-    }
-    }while(!val);
-}
-
-void Jugador::validarIngresoDir(int *ingresado) {
-    bool val;
-    do{
-        if (cin.fail()) {
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout<<"Entrada invalida. Debes ingresar un numero."<<endl;
-            cout<<"Intente nuevamente>>>";
-            cin>>*ingresado;
-            val=false;
-        }
-        else if (cin.peek() != '\n') {
-            cout<<"Entrada invalida. Debes ingresar un numero."<<endl;
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout<<"Intente nuevamente>>>";
-            cin>>*ingresado;
-            val=false;
-        }
-        else if(*ingresado!=0 && *ingresado!=1){
-            cout<<"Opcion invalida. Vertical[0] u Horizontal[1] ?"<<endl;
-            cout<<"Intente nuevamente>>>";
-            cin>>*ingresado;
-            val=false;
-        }
-        else {
-            val=true;
-        }
-    }while(!val);
-}
-
-

@@ -4,6 +4,7 @@
 class Barco{
 private:
     char tipo;
+    std::string nombre;
     int tamanio;
     int vida;
     int posX;

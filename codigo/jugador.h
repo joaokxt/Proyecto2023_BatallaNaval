@@ -9,6 +9,8 @@ protected:
     std::string nombre;
     bool turno;
     Tablero* tablero;
+    void validarIngresoXY(int* ingresado);
+    void validarIngresoDir(int* ingresado);
 public:
     Jugador();
     Jugador(std::string name, int dimension);
@@ -19,8 +21,6 @@ public:
     std::string getNombre();
     bool getTurno();
     void setTurno(bool turn);
-    void validarIngresoXY(int* ingresado);
-    void validarIngresoDir(int* ingresado);
 };
 
 #endif

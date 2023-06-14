@@ -1,8 +1,9 @@
 #include "bot.h"
+#include <iostream>
 #include <time.h>
 
 Bot::Bot(int dimension):Jugador("CPU", dimension){
-
+    srand(time(NULL));
 }
 Bot::~Bot(){
 
@@ -59,9 +60,10 @@ void Bot::disparar(Tablero *tableroEnemigo){
     bool valido;
     dim = tablero->getDimension();
     do{
+        srand(time(NULL));
         x=rand()%dim;
         y=rand()%dim;
-        tableroEnemigo->atacar(x,y);
+        valido = tableroEnemigo->atacar(x,y);
     }while(!valido);
     
 }

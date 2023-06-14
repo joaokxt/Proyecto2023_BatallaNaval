@@ -5,6 +5,7 @@ using namespace std;
 
 Barco::Barco(){
     tipo = 'O';
+    nombre = "Inexistente";
     tamanio = 0;
     vida = 0;
     posX = -1;
@@ -16,14 +17,19 @@ Barco::Barco(char type, int x, int y, bool isHorizontal){
     tipo = type;
     if(tipo == 'P'){//Patrullero
         tamanio = 1;
+        nombre = "Patrullero";
     }else if(tipo == 'D'){//Destructor
         tamanio = 2;
+        nombre = "Destructor";
     }else if(tipo == 'S'){//Submarino
         tamanio = 3;
+        nombre = "Submarino";
     }else if(tipo == 'C'){//Crucero
         tamanio = 3;
+        nombre = "Crucero";
     }else if(tipo == 'A'){//Acorazado
         tamanio = 4;
+        nombre = "Acorazado";
     }
     vida = tamanio;
     posX = x;
@@ -74,17 +80,7 @@ void Barco::acierto(){
     }
 }
 void Barco::resumen(){
-    if(tipo == 'P'){//Patrullero
-        cout<<"PATRULLERO: ";
-    }else if(tipo == 'D'){//Destructor
-        cout<<"DESTRUCTOR: ";
-    }else if(tipo == 'S'){//Submarino
-        cout<<"SUBMARINO: ";
-    }else if(tipo == 'C'){//Crucero
-        cout<<"CRUCERO: ";
-    }else if(tipo == 'A'){//Acorazado
-        cout<<"ACORAZADO: ";
-    }
+    cout<<nombre<<" ";
     if(hundido){
         cout<<"HUNDIDO"<<endl;
     }else{
