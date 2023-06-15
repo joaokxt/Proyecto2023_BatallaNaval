@@ -8,7 +8,6 @@
 using namespace std;
 
 Jugador* jugadores[2];
-Bot* bot;
 Tablero* tableros[2];
 
 char opcion;
@@ -56,58 +55,52 @@ void unJugador(){
     system("cls");
 
     jugadores[0] = new Jugador(name, dimension);
-    bot = new Bot(dimension);
+    jugadores[1] = new Bot(dimension);
 
     tableros[0] = jugadores[0]->getTablero();
-    tableros[1] = bot->getTablero();
+    tableros[1] = jugadores[1]->getTablero();
     tableros[0]->poblar();
     tableros[1]->poblar();
 
     jugadores[0]->ponerBarcos();
-    bot->ponerBarcos();
+    jugadores[1]->ponerBarcos();
     jugadores[0]->setTurno(true);
-    bot->setTurno(false);
+    jugadores[1]->setTurno(false);
     
     do{
         system("cls");
         cout<<"TU TABLERO "<<endl;
         tableros[0]->dibujar();
-        cout<<"TABLERO DE "<<bot->getNombre()<<endl;
+        cout<<"TABLERO DE "<<jugadores[1]->getNombre()<<endl;
         tableros[1]->enemigoDibujar();
-        /*
-        cout<<"FLOTA DE "<<jugadores[0]->getNombre()<<endl;
-        tableros[0]->resumenFlota();
-        cout<<"FLOTA DE "<<jugadores[1]->getNombre()<<endl;
-        tableros[1]->resumenFlota();*/
         if(jugadores[0]->getTurno()){
-            cout<<"\nTURNO DE "<<jugadores[0]->getNombre()<<endl;
+            cout<<"\n-=-=-=-=-=|TURNO DE "<<jugadores[0]->getNombre()<<"|=-=-=-=-=-"<<endl;
             cout<<"ATACA!"<<endl;
             jugadores[0]->disparar(tableros[1]);
-            cout<<"TU TABLERO "<<endl;
-            tableros[0]->dibujar();
-            cout<<"TABLERO DE "<<bot->getNombre()<<endl;
+            cout<<"\n-=-=-=-=-=|RESULTADOS|=-=-=-=-=-"<<endl;
+            cout<<"TABLERO DE "<<jugadores[1]->getNombre()<<endl;
             tableros[1]->enemigoDibujar();
             jugadores[0]->setTurno(false);
-            bot->setTurno(true);
+            jugadores[1]->setTurno(true);
             cout<<"Ingresa algo para seguir: ";
             cin>>ing;
 
         }else{
-            cout<<"\nTURNO DE "<<bot->getNombre()<<endl;
+            system("cls");
+            cout<<"\n-=-=-=-=-=|TURNO DE "<<jugadores[1]->getNombre()<<"|=-=-=-=-=-"<<endl;
             cout<<"LA CPU ATACA!"<<endl;
             cout<<"RESULTADO: ";
-            bot->disparar(tableros[0]);
+            jugadores[1]->disparar(tableros[0]);
+            cout<<"\n-=-=-=-=-=|RESULTADOS|=-=-=-=-=-"<<endl;
             cout<<"TU TABLERO "<<endl;
             tableros[0]->dibujar();
-            cout<<"TABLERO DE "<<bot->getNombre()<<endl;
-            tableros[1]->enemigoDibujar();
             jugadores[0]->setTurno(true);
-            bot->setTurno(false);
+            jugadores[1]->setTurno(false);
             cout<<"Ingresa algo para seguir: ";
             cin>>ing;
         }
         if(tableros[0]->flotaOperante()==false){
-            cout<<"GANO "<<bot->getNombre()<<endl;
+            cout<<"GANO "<<jugadores[1]->getNombre()<<endl;
             gameOver = true;
         }
         if(tableros[1]->flotaOperante()==false){
@@ -180,13 +173,8 @@ void dosJugadores(){
 
     do{
         system("cls");
-        /*
-        cout<<"FLOTA DE "<<jugadores[0]->getNombre()<<endl;
-        tableros[0]->resumenFlota();
-        cout<<"FLOTA DE "<<jugadores[1]->getNombre()<<endl;
-        tableros[1]->resumenFlota();*/
         if(jugadores[0]->getTurno()){
-            cout<<"TURNO DE "<<jugadores[0]->getNombre()<<endl;
+            cout<<"\n-=-=-=-=-=|TURNO DE "<<jugadores[0]->getNombre()<<"|=-=-=-=-=-"<<endl;
             cout<<"TU TABLERO "<<endl;
             tableros[0]->dibujar();
             cout<<"TABLERO DE "<<jugadores[1]->getNombre()<<endl;
@@ -199,7 +187,7 @@ void dosJugadores(){
             cin>>ing;
 
         }else{
-            cout<<"TURNO DE "<<jugadores[1]->getNombre()<<endl;
+            cout<<"\n-=-=-=-=-=|TURNO DE "<<jugadores[1]->getNombre()<<"|=-=-=-=-=-"<<endl;
             cout<<"TU TABLERO "<<endl;
             tableros[1]->dibujar();
             cout<<"TABLERO DE "<<jugadores[0]->getNombre()<<endl;

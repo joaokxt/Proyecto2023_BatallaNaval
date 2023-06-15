@@ -51,7 +51,11 @@ void Tablero::dibujar(){
     for(i=0; i<dimension; i++){
         cout<<i<<" ";
         for(j=0; j<dimension; j++){
-            cout<<posiciones[i][j]<<" ";
+            if(j<10){
+                cout<<posiciones[i][j]<<" ";
+            }else{
+                cout<<posiciones[i][j]<<"  ";
+            }
         }
         cout<<endl;
     }
@@ -138,11 +142,6 @@ bool Tablero::atacar(int x, int y){
     }else{
         cout<<"Disparo fuera de alcance!"<<endl;
         return false;
-    }
-}
-void Tablero::resumenFlota(){
-    for(int i=0; i<7; i++){
-        barcos[i]->resumen();
     }
 }
 bool Tablero::flotaOperante(){

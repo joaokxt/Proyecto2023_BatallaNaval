@@ -73,7 +73,7 @@ bool Barco::consultarPosicion(int x, int y){
 void Barco::acierto(){
     vida--;
     cout<<"ACIERTO!"<<endl;
-    cout<<"Has acertado un "<<tipo<<"! Vida: "<<vida<<endl;
+    cout<<"Has acertado un "<<nombre<<"! Vida: "<<vida<<endl;
     if(vida==0){
         hundido=true;
         cout<<tipo<<" hundido!"<<endl;

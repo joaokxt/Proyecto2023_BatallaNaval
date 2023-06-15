@@ -16,8 +16,8 @@ public:
     Jugador(std::string name, int dimension);
     ~Jugador();
     Tablero* getTablero();
-    void ponerBarcos();
-    void disparar(Tablero *tableroEnemigo);
+    virtual void ponerBarcos();
+    virtual void disparar(Tablero *tableroEnemigo);
     std::string getNombre();
     bool getTurno();
     void setTurno(bool turn);
