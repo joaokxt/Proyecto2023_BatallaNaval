@@ -15,9 +15,9 @@ Tablero::Tablero(int dim){
     {
         posiciones = new char*[dim];
     }
-    catch (exception& e)
+    catch (std::bad_alloc)
     {
-        cout << "Excepcion: " << e.what() << endl;
+        cerr << "Excepcion: demasiado grande!" << endl;
     }
     for(int i=0; i<dimension; i++){
         posiciones[i] = new char(dimension);

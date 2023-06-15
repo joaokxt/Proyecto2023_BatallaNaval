@@ -25,11 +25,12 @@ void unJugador(){
     cout<<"Primero, como queres que te llame?"<<endl;
     cout<<">>> ";
     cin>>name;
+    cin.ignore();
     cout<<"Perfecto, "<<name<<"!"<<endl;
     cout<<"Ahora, deci de que tamano queres que sea tu tablero."<<endl;
     cout<<"Tiene que ser de por lo menos 9x9!"<<endl;
     do {
-        cout<<">>> ";
+        cout<<"Ingresa un numero >>> ";
         cin>>dimension;
         if (cin.fail()) {
             cin.clear();
@@ -126,10 +127,12 @@ void dosJugadores(){
     cout<<"Perfecto, "<<name1<<"!"<<endl;
     cout<<"Ahora, como queres que llame al segundo jugador?"<<endl;
     cout<<">>> ";
+    cin.ignore();
     cin>>name2;
     cout<<"Hola, "<<name2<<"!"<<endl;
     cout<<"Ahora, deci de que tamano queres que sea tu tablero."<<endl;
     cout<<"Tiene que ser de por lo menos 9x9!"<<endl;
+    cin.ignore();
     do {
         cout<<">>> ";
         cin>>dimension;
