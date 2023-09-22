@@ -1,2 +1,2 @@
-# proyecto2023_programacion2
-Proyecto de juego batalla naval
+# Proyecto Programación II
+Repositorio con proyecto para materia Programación II (POO). Se incluye el juego batalla naval.
